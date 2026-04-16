@@ -38,82 +38,6 @@ const Label: React.FC<{ keyName: string }> = ({ keyName }) => (
   </>
 );
 
-const ExpandableItem = ({
-  itemValue,
-  value,
-  keyName,
-  depth,
-  expandedDepth,
-  isLast,
-}: {
-  itemValue: string; // value prop for Accordion.Item
-  value: Json[] | Record<string, Json>;
-  keyName?: string;
-  depth: number;
-  expandedDepth: number | 'all';
-  isLast: boolean;
-}) => {
-  const [OPEN_CHAR, CLOSE_CHAR] = Array.isArray(value)
-    ? [Char.OPEN_ARRAY, Char.CLOSE_ARRAY]
-    : [Char.OPEN_OBJECT, Char.CLOSE_OBJECT];
-  const TRAILING_CHAR = isLast ? null : Char.TRAILING;
-
-  const { t } = useTranslation();
-  const entries = getEntries(value);
-  const summary = t(Array.isArray(value) ? 'item' : 'key', {
-    count: entries.length,
-  });
-
-  if (entries.length === 0) {
-    return (
-      <div className="flex items-center gap-[1ch] py-px">
-        {keyName && <Label keyName={keyName} />}
-        <span className="text-mist-300">
-          {OPEN_CHAR}
-          {CLOSE_CHAR}
-        </span>
-        {TRAILING_CHAR && (
-          <span className="text-mist-500">{TRAILING_CHAR}</span>
-        )}
-      </div>
-    );
-  }
-
-  return (
-    <Accordion.Item value={itemValue}>
-      <Accordion.Trigger className="group flex w-full cursor-pointer items-center rounded-sm py-px select-none hover:bg-mist-800">
-        <ChevronRight className="size-3 shrink-0 text-mist-500 transition-transform group-data-[state=open]:rotate-90" />
-
-        {keyName && <Label keyName={keyName} />}
-
-        <span className="text-mist-300">{OPEN_CHAR}</span>
-        <span className="group-data-[state=open]:hidden">
-          <span className="mx-1 text-xs text-mist-500">{summary}</span>
-          <span className="text-mist-300">{CLOSE_CHAR}</span>
-          {TRAILING_CHAR && (
-            <span className="text-mist-500">{TRAILING_CHAR}</span>
-          )}
-        </span>
-      </Accordion.Trigger>
-
-      <Accordion.Content>
-        <BranchNode
-          entries={entries}
-          depth={depth + 1}
-          expandedDepth={expandedDepth}
-        />
-
-        <div className="flex items-center py-px">
-          <span className="text-mist-300">{CLOSE_CHAR}</span>
-          {TRAILING_CHAR && (
-            <span className="text-mist-500">{TRAILING_CHAR}</span>
-          )}
-        </div>
-      </Accordion.Content>
-    </Accordion.Item>
-  );
-};
-
 const BranchNode = ({
   entries,
   depth,
@@ -125,6 +49,8 @@ const BranchNode = ({
   depth: number;
   expandedDepth: number | 'all';
 } & React.HTMLAttributes<HTMLDivElement>) => {
+  const { t } = useTranslation();
+
   const defaultOpen = entries
     .filter(
       ([, v]) =>
@@ -140,20 +66,71 @@ const BranchNode = ({
           const keyName = showKey ? key : undefined;
 
           if (isExpandable(value)) {
+            const [OPEN_CHAR, CLOSE_CHAR] = Array.isArray(value)
+              ? [Char.OPEN_ARRAY, Char.CLOSE_ARRAY]
+              : [Char.OPEN_OBJECT, Char.CLOSE_OBJECT];
+            const TRAILING_CHAR = isLast ? null : Char.TRAILING;
+            const subEntries = getEntries(value);
+            const summary = t(Array.isArray(value) ? 'item' : 'key', {
+              count: subEntries.length,
+            });
+
+            if (subEntries.length === 0) {
+              return (
+                <div key={key} className="flex items-center gap-[1ch] py-px">
+                  {keyName && <Label keyName={keyName} />}
+                  <span className="text-mist-300">
+                    {OPEN_CHAR}
+                    {CLOSE_CHAR}
+                  </span>
+                  {TRAILING_CHAR && (
+                    <span className="text-mist-500">{TRAILING_CHAR}</span>
+                  )}
+                </div>
+              );
+            }
+
             return (
-              <ExpandableItem
-                key={key}
-                itemValue={key}
-                value={value}
-                keyName={keyName}
-                depth={depth}
-                expandedDepth={expandedDepth}
-                isLast={isLast}
-              />
+              <Accordion.Item key={key} value={key}>
+                <Accordion.Trigger className="group flex w-full cursor-pointer items-center rounded-sm py-px select-none hover:bg-mist-800">
+                  <ChevronRight className="size-3 shrink-0 text-mist-500 transition-transform group-data-[state=open]:rotate-90" />
+                  {keyName && <Label keyName={keyName} />}
+                  <span className="text-mist-300">{OPEN_CHAR}</span>
+                  <span className="group-data-[state=open]:hidden">
+                    <span className="mx-1 text-xs text-mist-500">
+                      {summary}
+                    </span>
+                    <span className="text-mist-300">{CLOSE_CHAR}</span>
+                    {TRAILING_CHAR && (
+                      <span className="text-mist-500">{TRAILING_CHAR}</span>
+                    )}
+                  </span>
+                </Accordion.Trigger>
+                <Accordion.Content>
+                  <BranchNode
+                    entries={subEntries}
+                    depth={depth + 1}
+                    expandedDepth={expandedDepth}
+                  />
+                  <div className="flex items-center py-px">
+                    <span className="text-mist-300">{CLOSE_CHAR}</span>
+                    {TRAILING_CHAR && (
+                      <span className="text-mist-500">{TRAILING_CHAR}</span>
+                    )}
+                  </div>
+                </Accordion.Content>
+              </Accordion.Item>
             );
           }
 
-          return <LeafNode keyName={keyName} value={value} isLast={isLast} />;
+          return (
+            <LeafNode
+              key={key}
+              keyName={keyName}
+              value={value}
+              isLast={isLast}
+            />
+          );
         })}
       </Accordion.Root>
     </div>
