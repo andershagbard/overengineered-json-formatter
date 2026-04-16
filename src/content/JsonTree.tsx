@@ -150,7 +150,7 @@ const LeafNode: React.FC<
       <Primitive value={value} />
       {!isLast && <span className="text-mist-500">{Char.TRAILING}</span>}
       &nbsp;
-      <CopyButton value={value} />
+      <CopyButton copyValue={value} />
     </div>
   );
 };

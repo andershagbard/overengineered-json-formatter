@@ -6,14 +6,14 @@ import { useTranslation } from 'react-i18next';
 
 export const CopyButton: React.FC<
   {
-    value: string | number | boolean | null;
+    copyValue: string | number | boolean | null;
   } & React.JSX.IntrinsicElements['button']
-> = ({ value, className, ...props }) => {
+> = ({ copyValue, className, ...props }) => {
   const { t } = useTranslation();
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
-    const text = value === null ? 'null' : value.toString();
+    const text = copyValue === null ? 'null' : copyValue.toString();
 
     navigator.clipboard.writeText(text).then(() => {
       setCopied(true);
