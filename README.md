@@ -6,33 +6,15 @@ Chrome has a built-in JSON viewer. It's fine. This is not fine - it's so much mo
 
 ## Features
 
-### Core Rendering
-
 - Auto-detects JSON pages (`application/json` and `text/json` content types) and replaces the default browser output
 - Interactive collapsible/expandable tree for nested objects and arrays
 - Syntax highlighting for all JSON value types
-- Monospace font with configurable indentation
-
-### Navigation & Inspection
-
+- Settings with configurable tab width, color mode, and color theme
 - Depth-level filter buttons - collapse or expand the tree to a specific nesting level
-- "All" button to fully expand the entire tree at once
 - Stats bar showing total node count and maximum depth of the parsed structure
-
-### Copy to Clipboard
-
-Individual JSON values can be copied by clicking the copy button that appears on hover. For when you need exactly that one nested string 4 levels deep.
-
-### Accessibility
-
-- ARIA labels on all interactive elements
-- Semantic HTML with proper focus management
-- Full keyboard navigation support
-- Focus-visible ring states
-
-### Internationalization
-
-English UI strings backed by i18next, because maybe one day someone will want this in French.
+- Individual JSON values can be copied by clicking the copy button that appears on hover. For when you need exactly that one nested string 4 levels deep
+- Fully accessible - Not just for vision impaired users, but also great for those you want to avoid using a mouse
+- English UI strings backed by i18next, because maybe one day someone will want this in Frxnch
 
 ## Tech Stack
 
