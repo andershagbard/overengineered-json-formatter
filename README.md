@@ -1,5 +1,7 @@
 # Overengineered JSON Viewer
 
+![Screenshot of extension in action](./screenshot.png)
+
 > An overengineered Chrome extension for viewing JSON. Yes, we used React, TypeScript, Tailwind CSS v4, Radix UI, i18next, and a full Vite build pipeline for this. No, we are not sorry.
 
 Chrome has a built-in JSON viewer. It's fine. This is not fine - it's so much more than fine. It automatically detects JSON pages and replaces the browser's default rendering with an interactive, syntax-highlighted, collapsible tree view, complete with 9 color themes, 3 tab width options, and a settings popover built with Radix UI.
