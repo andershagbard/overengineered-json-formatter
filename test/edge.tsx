@@ -1,5 +1,6 @@
 import Content from 'content/Content';
 import 'css/app.css';
+import { SettingsProvider } from 'context/SettingsContext';
 import { createRoot } from 'react-dom/client';
 
 const data = {
@@ -44,4 +45,8 @@ const data = {
   mixed_array: [1, 'two', true, null, { nested: 'object' }, [1, 2, 3]],
 };
 
-createRoot(document.getElementById('root')!).render(<Content data={data} />);
+createRoot(document.getElementById('root')!).render(
+  <SettingsProvider>
+    <Content data={data} />
+  </SettingsProvider>,
+);

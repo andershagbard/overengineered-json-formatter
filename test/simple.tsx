@@ -1,6 +1,7 @@
 import 'css/app.css';
 
 import Content from 'content/Content';
+import { SettingsProvider } from 'context/SettingsContext';
 import { createRoot } from 'react-dom/client';
 
 const data = {
@@ -16,4 +17,8 @@ const data = {
   createdAt: '2024-01-15T08:30:00Z',
 };
 
-createRoot(document.getElementById('root')!).render(<Content data={data} />);
+createRoot(document.getElementById('root')!).render(
+  <SettingsProvider>
+    <Content data={data} />
+  </SettingsProvider>,
+);

@@ -1,4 +1,5 @@
 import Content from 'content/Content';
+import { DEFAULT_SETTINGS, SettingsProvider } from 'context/SettingsContext';
 import styles from 'css/app.css?inline';
 import 'i18n';
 import { createRoot } from 'react-dom/client';
@@ -29,7 +30,19 @@ const injectReact = (data: Json) => {
   root.id = 'json-viewer-root';
   document.body.appendChild(root);
 
-  createRoot(root).render(<Content data={data} />);
+  createRoot(root).render(
+    <SettingsProvider>
+      <Content data={data} />
+    </SettingsProvider>,
+  );
+};
+
+const injectSettings = () => {
+  chrome.storage.sync.get(DEFAULT_SETTINGS).then((stored) => {
+    document.body.setAttribute('data-color-mode', stored.colorMode);
+    document.body.setAttribute('data-theme', stored.theme);
+    document.body.style.setProperty('--tab-width', `${stored.tabWidth}ch`);
+  });
 };
 
 if (isJson) {
@@ -52,6 +65,7 @@ if (isJson) {
     }
 
     injectCSS();
+    injectSettings();
     injectReact(parsed as Json);
   }
 }
