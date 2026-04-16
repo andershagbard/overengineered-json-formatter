@@ -1,0 +1,13 @@
+{
+  "nodes": "nodes",
+  "depth": "depth",
+  "levels": "Levels",
+  "all": "All",
+  "item_one": "{{count}} item",
+  "item_other": "{{count}} items",
+  "key_one": "{{count}} key",
+  "key_other": "{{count}} keys",
+  "aria": {
+    "copy": "Copy to clipboard"
+  }
+}
