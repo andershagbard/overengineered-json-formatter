@@ -1,12 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "JSON Viewer",
+  "name": "Overengineered JSON Viewer",
   "version": "1.0.0",
-  "description": "A JSON viewer Chrome extension",
-  "background": {
-    "service_worker": "src/background/index.ts",
-    "type": "module"
-  },
+  "description": "An overengineered JSON viewer Chrome extension",
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
