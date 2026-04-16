@@ -1,4 +1,4 @@
-import Content from 'content/Content';
+import App from 'App';
 import { DEFAULT_SETTINGS, SettingsProvider } from 'context/SettingsContext';
 import styles from 'css/app.css?inline';
 import 'i18n';
@@ -32,7 +32,7 @@ const injectReact = (data: Json) => {
 
   createRoot(root).render(
     <SettingsProvider>
-      <Content data={data} />
+      <App data={data} />
     </SettingsProvider>,
   );
 };

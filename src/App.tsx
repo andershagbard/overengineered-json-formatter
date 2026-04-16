@@ -11,12 +11,11 @@ import {
 import { Monitor, Moon, Settings, Sun } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
+import { JsonTree } from 'components/JsonTree';
 import { Popover } from 'components/Popover';
 import { RadioGroup } from 'components/RadioGroup';
 import type { Json } from 'types/json';
 import { maxDepth, nodeCount } from 'utils/json';
-
-import { JsonTree } from './JsonTree';
 
 const themes: Theme[] = [
   'slate',
@@ -59,7 +58,7 @@ const LevelButton: React.FC<
   );
 };
 
-const Content: React.FC<{ data: Json }> = ({ data }) => {
+const App: React.FC<{ data: Json }> = ({ data }) => {
   const { t } = useTranslation();
   const [currentLevel, setCurrentLevel] = useState<number | 'all'>('all');
   const { tabWidth, setTabWidth, theme, setTheme, colorMode, setColorMode } =
@@ -193,4 +192,4 @@ const Content: React.FC<{ data: Json }> = ({ data }) => {
   );
 };
 
-export default Content;
+export default App;

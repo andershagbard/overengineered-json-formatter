@@ -1,7 +1,6 @@
-import 'css/app.css';
-
-import Content from 'content/Content';
+import App from 'App';
 import { SettingsProvider } from 'context/SettingsContext';
+import 'css/app.css';
 import { createRoot } from 'react-dom/client';
 
 const data = {
@@ -19,6 +18,6 @@ const data = {
 
 createRoot(document.getElementById('root')!).render(
   <SettingsProvider>
-    <Content data={data} />
+    <App data={data} />
   </SettingsProvider>,
 );
