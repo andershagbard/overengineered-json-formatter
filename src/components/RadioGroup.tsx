@@ -7,7 +7,6 @@ type Option<T> = {
 };
 
 type Props<T extends string | number> = {
-  name: string;
   groupLabel: string;
   value: T;
   onChange: (value: T) => void;
@@ -21,7 +20,7 @@ export const RadioGroup = <T extends string | number>({
   onChange,
   options,
   ...props
-}: Props<T> & React.JSX.IntrinsicElements['fieldset']) => {
+}: Props<T> & Omit<React.JSX.IntrinsicElements['fieldset'], 'onChange'>) => {
   const row = options.length <= 3;
 
   return (
