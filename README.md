@@ -37,7 +37,6 @@ Did you really need React for a JSON viewer? Absolutely not. Did we use it anywa
 ## Development
 
 ```bash
-pnpm install
 pnpm dev        # Start dev server with HMR
 pnpm build      # Production build
 pnpm test       # Run unit tests
