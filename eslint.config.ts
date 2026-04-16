@@ -7,19 +7,14 @@ import tseslint from 'typescript-eslint';
 export default defineConfig(
   js.configs.recommended,
   tseslint.configs.recommended,
+  reactPlugin.configs.flat.recommended,
+  reactPlugin.configs.flat['jsx-runtime'],
+  reactHooks.configs.flat.recommended,
   {
-    files: ['src/**/*.{ts,tsx}'],
-    plugins: {
-      react: reactPlugin,
-      'react-hooks': reactHooks,
-    },
     settings: {
       react: { version: '19' },
     },
     rules: {
-      ...reactPlugin.configs.recommended.rules,
-      ...reactHooks.configs.recommended.rules,
-      'react/react-in-jsx-scope': 'off',
       'react/prop-types': 'off',
     },
   },
