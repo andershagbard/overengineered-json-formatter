@@ -88,8 +88,8 @@ const App: React.FC<{ data: Json }> = ({ data }) => {
   }));
 
   return (
-    <div className="min-h-screen">
-      <div className="sticky top-0 z-10 p-2">
+    <div className="min-h-screen space-y-2">
+      <div className="sticky top-0 z-10 px-2 pt-2">
         <div className="border-ui-border/50 bg-ui-surface/50 flex items-center gap-4 rounded-2xl border px-4 py-2 backdrop-blur">
           <div className="text-ui-text-muted flex items-center gap-3 font-mono text-xs">
             <span>
@@ -186,7 +186,7 @@ const App: React.FC<{ data: Json }> = ({ data }) => {
         key={String(currentLevel)}
         data={data}
         expandedDepth={currentLevel}
-        className="p-4"
+        className="px-4 pb-2"
       />
     </div>
   );
