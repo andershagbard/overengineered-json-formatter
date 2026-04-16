@@ -33,7 +33,7 @@ const Primitive = ({ value }: { value: string | number | boolean | null }) => {
 
 const Label: React.FC<{ keyName: string }> = ({ keyName }) => (
   <>
-    <span className="text-syntax-key">"{keyName}"</span>
+    <span className="text-syntax-key">&quot;{keyName}&quot;</span>
     <span className="text-tree-separator">:&nbsp;</span>
   </>
 );
