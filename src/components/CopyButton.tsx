@@ -26,17 +26,17 @@ export const CopyButton: React.FC<
       type="button"
       onClick={handleCopy}
       className={cn(
-        'flex size-4 cursor-pointer items-center justify-center rounded-sm text-mist-500 opacity-0 transition-opacity',
-        'hover:text-mist-200',
+        'text-ui-text-dim flex size-4 cursor-pointer items-center justify-center rounded-sm opacity-0 transition-opacity',
+        'hover:text-ui-text',
         'group-focus-within:opacity-100 group-hover:opacity-100',
-        'outline-none focus-visible:ring-2 focus-visible:ring-blue-600',
+        'focus-visible:ring-accent outline-none focus-visible:ring-2',
         className,
       )}
       aria-label={t('aria.copy')}
       {...props}
     >
       {copied ? (
-        <Check className="size-3 text-emerald-400" />
+        <Check className="text-syntax-string size-3" />
       ) : (
         <Copy className="size-3" />
       )}

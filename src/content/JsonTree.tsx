@@ -17,24 +17,24 @@ enum Char {
 
 const Primitive = ({ value }: { value: string | number | boolean | null }) => {
   if (value === null) {
-    return <span className="text-red-400">null</span>;
+    return <span className="text-syntax-null">null</span>;
   }
 
   if (typeof value === 'boolean') {
-    return <span className="text-violet-400">{value}</span>;
+    return <span className="text-syntax-boolean">{value}</span>;
   }
 
   if (typeof value === 'number') {
-    return <span className="text-amber-400">{value}</span>;
+    return <span className="text-syntax-number">{value}</span>;
   }
 
-  return <span className="text-emerald-400">{JSON.stringify(value)}</span>;
+  return <span className="text-syntax-string">{JSON.stringify(value)}</span>;
 };
 
 const Label: React.FC<{ keyName: string }> = ({ keyName }) => (
   <>
-    <span className="text-sky-400">"{keyName}"</span>
-    <span className="text-mist-500">:&nbsp;</span>
+    <span className="text-syntax-key">"{keyName}"</span>
+    <span className="text-tree-separator">:&nbsp;</span>
   </>
 );
 
@@ -59,7 +59,10 @@ const BranchNode = ({
     .map(([key]) => key);
 
   return (
-    <div className={cn('border-l border-mist-800 pl-6', className)} {...props}>
+    <div
+      className={cn('border-tree-indent border-l pl-(--tab-width)', className)}
+      {...props}
+    >
       <Accordion.Root type="multiple" defaultValue={defaultOpen}>
         {entries.map(([key, value, showKey], i) => {
           const isLast = i === entries.length - 1;
@@ -79,12 +82,12 @@ const BranchNode = ({
               return (
                 <div key={key} className="flex items-center gap-[1ch] py-px">
                   {keyName && <Label keyName={keyName} />}
-                  <span className="text-mist-300">
+                  <span className="text-tree-bracket">
                     {OPEN_CHAR}
                     {CLOSE_CHAR}
                   </span>
                   {TRAILING_CHAR && (
-                    <span className="text-mist-500">{TRAILING_CHAR}</span>
+                    <span className="text-tree-separator">{TRAILING_CHAR}</span>
                   )}
                 </div>
               );
@@ -92,17 +95,19 @@ const BranchNode = ({
 
             return (
               <Accordion.Item key={key} value={key}>
-                <Accordion.Trigger className="group flex w-full cursor-pointer items-center rounded-sm py-px select-none hover:bg-mist-800">
-                  <ChevronRight className="size-3 shrink-0 text-mist-500 transition-transform group-data-[state=open]:rotate-90" />
+                <Accordion.Trigger className="group hover:bg-tree-hover flex w-full cursor-pointer items-center rounded-sm py-px select-none">
+                  <ChevronRight className="text-tree-separator size-3 shrink-0 transition-transform group-data-[state=open]:rotate-90" />
                   {keyName && <Label keyName={keyName} />}
-                  <span className="text-mist-300">{OPEN_CHAR}</span>
+                  <span className="text-tree-bracket">{OPEN_CHAR}</span>
                   <span className="group-data-[state=open]:hidden">
-                    <span className="mx-1 text-xs text-mist-500">
+                    <span className="text-tree-separator mx-1 text-xs">
                       {summary}
                     </span>
-                    <span className="text-mist-300">{CLOSE_CHAR}</span>
+                    <span className="text-tree-bracket">{CLOSE_CHAR}</span>
                     {TRAILING_CHAR && (
-                      <span className="text-mist-500">{TRAILING_CHAR}</span>
+                      <span className="text-tree-separator">
+                        {TRAILING_CHAR}
+                      </span>
                     )}
                   </span>
                 </Accordion.Trigger>
@@ -113,9 +118,11 @@ const BranchNode = ({
                     expandedDepth={expandedDepth}
                   />
                   <div className="flex items-center py-px">
-                    <span className="text-mist-300">{CLOSE_CHAR}</span>
+                    <span className="text-tree-bracket">{CLOSE_CHAR}</span>
                     {TRAILING_CHAR && (
-                      <span className="text-mist-500">{TRAILING_CHAR}</span>
+                      <span className="text-tree-separator">
+                        {TRAILING_CHAR}
+                      </span>
                     )}
                   </div>
                 </Accordion.Content>
@@ -148,7 +155,7 @@ const LeafNode: React.FC<
     <div className={cn('group flex items-center py-px', className)} {...props}>
       {keyName && <Label keyName={keyName} />}
       <Primitive value={value} />
-      {!isLast && <span className="text-mist-500">{Char.TRAILING}</span>}
+      {!isLast && <span className="text-tree-separator">{Char.TRAILING}</span>}
       &nbsp;
       <CopyButton copyValue={value} />
     </div>
@@ -182,12 +189,14 @@ export const JsonTree: React.FC<
     <div className={cn('font-mono text-sm leading-5', className)} {...props}>
       <Accordion.Root type="multiple" defaultValue={['root']}>
         <Accordion.Item value="root">
-          <Accordion.Trigger className="group flex w-full cursor-pointer items-center rounded-sm py-px select-none hover:bg-mist-800">
-            <ChevronRight className="size-3 shrink-0 text-mist-500 transition-transform group-data-[state=open]:rotate-90" />
-            <span className="text-mist-300">{openChar}</span>
+          <Accordion.Trigger className="group hover:bg-tree-hover flex w-full cursor-pointer items-center rounded-sm py-px select-none">
+            <ChevronRight className="text-tree-separator size-3 shrink-0 transition-transform group-data-[state=open]:rotate-90" />
+            <span className="text-tree-bracket">{openChar}</span>
             <span className="group-data-[state=open]:hidden">
-              <span className="mx-1 text-xs text-mist-500">{summary}</span>
-              <span className="text-mist-300">{closeChar}</span>
+              <span className="text-tree-separator mx-1 text-xs">
+                {summary}
+              </span>
+              <span className="text-tree-bracket">{closeChar}</span>
             </span>
           </Accordion.Trigger>
 
@@ -199,7 +208,7 @@ export const JsonTree: React.FC<
             />
 
             <div className="flex items-center py-px">
-              <span className="text-mist-300">{closeChar}</span>
+              <span className="text-tree-bracket">{closeChar}</span>
             </div>
           </Accordion.Content>
         </Accordion.Item>

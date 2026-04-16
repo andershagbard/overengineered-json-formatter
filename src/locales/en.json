@@ -7,7 +7,30 @@
   "item_other": "{{count}} items",
   "key_one": "{{count}} key",
   "key_other": "{{count}} keys",
+  "settings": {
+    "label": "Settings",
+    "tabWidth": "Tab width",
+    "colorMode": "Color mode",
+    "modes": {
+      "dark": "Dark",
+      "light": "Light",
+      "device": "Device"
+    },
+    "colorTheme": "Color theme",
+    "themes": {
+      "slate": "Slate",
+      "gray": "Gray",
+      "zinc": "Zinc",
+      "neutral": "Neutral",
+      "stone": "Stone",
+      "taupe": "Taupe",
+      "mauve": "Mauve",
+      "mist": "Mist",
+      "olive": "Olive"
+    }
+  },
   "aria": {
-    "copy": "Copy to clipboard"
+    "copy": "Copy to clipboard",
+    "settings": "Settings"
   }
 }
