@@ -61,8 +61,16 @@ const LevelButton: React.FC<
 const App: React.FC<{ data: Json }> = ({ data }) => {
   const { t } = useTranslation();
   const [currentLevel, setCurrentLevel] = useState<number | 'all'>('all');
-  const { tabWidth, setTabWidth, theme, setTheme, colorMode, setColorMode } =
-    useSettings();
+  const {
+    tabWidth,
+    setTabWidth,
+    theme,
+    setTheme,
+    colorMode,
+    setColorMode,
+    wrapContent,
+    setWrapContent,
+  } = useSettings();
 
   const nodes = useMemo(() => nodeCount(data), [data]);
   const depth = useMemo(() => maxDepth(data), [data]);
@@ -176,6 +184,17 @@ const App: React.FC<{ data: Json }> = ({ data }) => {
                   onChange={setTheme}
                   options={themeOptions}
                 />
+
+                <RadioGroup
+                  name="wrap-content"
+                  groupLabel={t('settings.wrapContent')}
+                  value={wrapContent ? 'on' : 'off'}
+                  onChange={(v) => setWrapContent(v === 'on')}
+                  options={[
+                    { value: 'on', label: t('settings.on') },
+                    { value: 'off', label: t('settings.off') },
+                  ]}
+                />
               </div>
             </Popover>
           </div>
@@ -186,7 +205,7 @@ const App: React.FC<{ data: Json }> = ({ data }) => {
         key={String(currentLevel)}
         data={data}
         expandedDepth={currentLevel}
-        className="px-4 pb-2"
+        className="overflow-auto px-4 pb-2"
       />
     </div>
   );

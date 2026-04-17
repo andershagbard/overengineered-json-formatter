@@ -17,6 +17,9 @@
       "device": "Device"
     },
     "colorTheme": "Color theme",
+    "wrapContent": "Wrap content",
+    "on": "On",
+    "off": "Off",
     "themes": {
       "slate": "Slate",
       "gray": "Gray",

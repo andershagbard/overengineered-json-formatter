@@ -1,5 +1,6 @@
 import * as Accordion from '@radix-ui/react-accordion';
 import cn from 'classnames';
+import { useSettings } from 'context/SettingsContext';
 import { ChevronRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
@@ -152,11 +153,13 @@ const LeafNode: React.FC<
     isLast?: boolean;
   } & React.HTMLAttributes<HTMLDivElement>
 > = ({ keyName, value, className, isLast = false, ...props }) => {
+  const { wrapContent } = useSettings();
+
   return (
     <div className={cn('group flex py-px', className)} {...props}>
       <span className="size-3 shrink-0" />
       {keyName && <Label keyName={keyName} />}
-      <span>
+      <span className={cn({ 'whitespace-nowrap': !wrapContent })}>
         <Primitive value={value} />
         {!isLast && (
           <span className="text-tree-separator">{Char.TRAILING}</span>

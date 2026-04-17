@@ -17,18 +17,21 @@ type Settings = {
   tabWidth: TabWidth;
   theme: Theme;
   colorMode: ColorMode;
+  wrapContent: boolean;
 };
 
 export const DEFAULT_SETTINGS: Settings = {
   tabWidth: 2,
   theme: 'slate',
   colorMode: 'dark',
+  wrapContent: true,
 };
 
 type SettingsContextValue = Settings & {
   setTabWidth: (width: TabWidth) => void;
   setTheme: (theme: Theme) => void;
   setColorMode: (mode: ColorMode) => void;
+  setWrapContent: (wrap: boolean) => void;
 };
 
 const SettingsContext = createContext<SettingsContextValue | null>(null);
@@ -41,12 +44,16 @@ export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({
   const [colorMode, setColorMode] = useState<ColorMode>(
     DEFAULT_SETTINGS.colorMode,
   );
+  const [wrapContent, setWrapContent] = useState<boolean>(
+    DEFAULT_SETTINGS.wrapContent,
+  );
 
   useEffect(() => {
     chrome?.storage?.sync.get(DEFAULT_SETTINGS).then((stored) => {
       setTabWidth(stored.tabWidth as TabWidth);
       setTheme(stored.theme as Theme);
       setColorMode(stored.colorMode as ColorMode);
+      setWrapContent(stored.wrapContent as boolean);
     });
   }, []);
 
@@ -65,6 +72,10 @@ export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({
     document.body.style.setProperty('--tab-width', `${tabWidth}ch`);
   }, [tabWidth]);
 
+  useEffect(() => {
+    chrome?.storage?.sync.set({ wrapContent });
+  }, [wrapContent]);
+
   return (
     <SettingsContext
       value={{
@@ -74,6 +85,8 @@ export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({
         setTheme,
         colorMode,
         setColorMode,
+        wrapContent,
+        setWrapContent,
       }}
     >
       {children}
