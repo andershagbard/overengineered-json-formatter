@@ -63,7 +63,7 @@ const App: React.FC<{ data: Json }> = ({ data }) => {
   const { t } = useTranslation();
   const [currentLevel, setCurrentLevel] = useState<number | 'all'>('all');
   const [filterQuery, setFilterQuery] = useState('');
-  const [filteredData, setFilteredData] = useState<Json | null>(null);
+  const [filteredData, setFilteredData] = useState<Json | undefined>(undefined);
   const [filterError, setFilterError] = useState<string | null>(null);
   const [filterKey, setFilterKey] = useState(0);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -90,7 +90,7 @@ const App: React.FC<{ data: Json }> = ({ data }) => {
     debounceRef.current = setTimeout(
       () => {
         if (!filterQuery.trim()) {
-          setFilteredData(null);
+          setFilteredData(undefined);
           setFilterError(null);
           return;
         }
@@ -198,7 +198,7 @@ const App: React.FC<{ data: Json }> = ({ data }) => {
                 type="button"
                 onClick={() => {
                   setFilterQuery('');
-                  setFilteredData(null);
+                  setFilteredData(undefined);
                   setFilterError(null);
                 }}
                 aria-label={t('filter.clear')}
@@ -273,7 +273,7 @@ const App: React.FC<{ data: Json }> = ({ data }) => {
 
       <JsonTree
         key={`${currentLevel}-${filterKey}`}
-        data={filteredData ?? data}
+        data={filteredData !== undefined ? filteredData : data}
         expandedDepth={currentLevel}
         className="overflow-auto px-4 pb-2"
       />
