@@ -21,7 +21,7 @@ const Primitive = ({ value }: { value: string | number | boolean | null }) => {
   }
 
   if (typeof value === 'boolean') {
-    return <span className="text-syntax-boolean">{value}</span>;
+    return <span className="text-syntax-boolean">{String(value)}</span>;
   }
 
   if (typeof value === 'number') {
