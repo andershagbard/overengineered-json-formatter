@@ -126,6 +126,7 @@ const BranchNode = ({
                     expandedDepth={expandedDepth}
                   />
                   <div className="flex items-center py-px">
+                    <span className="size-3 shrink-0" />
                     <span className="text-tree-bracket">{CLOSE_CHAR}</span>
                     {TRAILING_CHAR && (
                       <span className="text-tree-separator">
@@ -227,6 +228,7 @@ export const JsonTree: React.FC<
             />
 
             <div className="flex items-center py-px">
+              <span className="size-3 shrink-0" />
               <span className="text-tree-bracket">{closeChar}</span>
             </div>
           </Accordion.Content>
