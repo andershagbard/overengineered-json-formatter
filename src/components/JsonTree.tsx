@@ -80,7 +80,7 @@ const BranchNode = ({
 
             if (subEntries.length === 0) {
               return (
-                <div key={key} className="flex items-center gap-[1ch] py-px">
+                <div key={key} className="flex items-center py-px">
                   {keyName && <Label keyName={keyName} />}
                   <span className="text-tree-bracket">
                     {OPEN_CHAR}
