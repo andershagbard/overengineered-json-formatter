@@ -152,12 +152,16 @@ const LeafNode: React.FC<
   } & React.HTMLAttributes<HTMLDivElement>
 > = ({ keyName, value, className, isLast = false, ...props }) => {
   return (
-    <div className={cn('group flex items-center py-px', className)} {...props}>
+    <div className={cn('group flex py-px', className)} {...props}>
       {keyName && <Label keyName={keyName} />}
-      <Primitive value={value} />
-      {!isLast && <span className="text-tree-separator">{Char.TRAILING}</span>}
+      <span>
+        <Primitive value={value} />
+        {!isLast && (
+          <span className="text-tree-separator">{Char.TRAILING}</span>
+        )}
+      </span>
       &nbsp;
-      <CopyButton copyValue={value} />
+      <CopyButton className="size-5" copyValue={value} />
     </div>
   );
 };

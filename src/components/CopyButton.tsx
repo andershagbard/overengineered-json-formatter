@@ -26,7 +26,7 @@ export const CopyButton: React.FC<
       type="button"
       onClick={handleCopy}
       className={cn(
-        'text-ui-text-dim flex size-4 cursor-pointer items-center justify-center rounded-sm opacity-0 transition-opacity',
+        'text-ui-text-dim flex cursor-pointer items-center justify-center rounded-sm opacity-0 transition-opacity',
         'hover:text-ui-text',
         'group-focus-within:opacity-100 group-hover:opacity-100',
         'focus-visible:ring-accent outline-none focus-visible:ring-2',
