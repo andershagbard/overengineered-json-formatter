@@ -1,6 +1,7 @@
 import App from 'App';
 import { SettingsProvider } from 'context/SettingsContext';
 import 'css/app.css';
+import 'i18n';
 import { createRoot } from 'react-dom/client';
 
 const data = {

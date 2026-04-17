@@ -43,7 +43,7 @@ export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({
   );
 
   useEffect(() => {
-    chrome.storage.sync.get(DEFAULT_SETTINGS).then((stored) => {
+    chrome?.storage?.sync.get(DEFAULT_SETTINGS).then((stored) => {
       setTabWidth(stored.tabWidth as TabWidth);
       setTheme(stored.theme as Theme);
       setColorMode(stored.colorMode as ColorMode);
@@ -51,17 +51,17 @@ export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({
   }, []);
 
   useEffect(() => {
-    chrome.storage.sync.set({ theme });
+    chrome?.storage?.sync.set({ theme });
     document.body.setAttribute('data-theme', theme);
   }, [theme]);
 
   useEffect(() => {
-    chrome.storage.sync.set({ colorMode });
+    chrome?.storage?.sync.set({ colorMode });
     document.body.setAttribute('data-color-mode', colorMode);
   }, [colorMode]);
 
   useEffect(() => {
-    chrome.storage.sync.set({ tabWidth });
+    chrome?.storage?.sync.set({ tabWidth });
     document.body.style.setProperty('--tab-width', `${tabWidth}ch`);
   }, [tabWidth]);
 

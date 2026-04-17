@@ -38,7 +38,7 @@ const injectReact = (data: Json) => {
 };
 
 const injectSettings = () => {
-  chrome.storage.sync.get(DEFAULT_SETTINGS).then((stored) => {
+  chrome?.storage?.sync.get(DEFAULT_SETTINGS).then((stored) => {
     document.body.setAttribute('data-color-mode', stored.colorMode);
     document.body.setAttribute('data-theme', stored.theme);
     document.body.style.setProperty('--tab-width', `${stored.tabWidth}ch`);
