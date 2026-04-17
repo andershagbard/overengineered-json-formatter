@@ -105,6 +105,7 @@ const App: React.FC<{ data: Json }> = ({ data }) => {
       },
       filterQuery.trim() ? 250 : 0,
     );
+
     return () => {
       if (debounceRef.current) clearTimeout(debounceRef.current);
     };
