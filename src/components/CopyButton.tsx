@@ -4,16 +4,25 @@ import cn from 'classnames';
 import { Check, Copy } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
+import type { Json } from 'types/json';
+
 export const CopyButton: React.FC<
   {
-    copyValue: string | number | boolean | null;
+    copyValue: Json;
   } & React.JSX.IntrinsicElements['button']
 > = ({ copyValue, className, ...props }) => {
   const { t } = useTranslation();
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
-    const text = copyValue === null ? 'null' : copyValue.toString();
+    let text: string;
+    if (copyValue === null) {
+      text = 'null';
+    } else if (typeof copyValue === 'object') {
+      text = JSON.stringify(copyValue, null, 2);
+    } else {
+      text = copyValue.toString();
+    }
 
     navigator.clipboard.writeText(text).then(() => {
       setCopied(true);

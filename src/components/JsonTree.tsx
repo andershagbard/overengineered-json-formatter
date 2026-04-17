@@ -81,7 +81,7 @@ const BranchNode = ({
 
             if (subEntries.length === 0) {
               return (
-                <div key={key} className="flex items-center py-px">
+                <div key={key} className="group flex items-center py-px">
                   <span className="size-3 shrink-0" />
                   {keyName && <Label keyName={keyName} />}
                   <span className="text-tree-bracket">
@@ -91,6 +91,8 @@ const BranchNode = ({
                   {TRAILING_CHAR && (
                     <span className="text-tree-separator">{TRAILING_CHAR}</span>
                   )}
+                  &nbsp;
+                  <CopyButton className="size-5" copyValue={value} />
                 </div>
               );
             }
@@ -111,6 +113,10 @@ const BranchNode = ({
                         {TRAILING_CHAR}
                       </span>
                     )}
+                  </span>
+                  &nbsp;
+                  <span onClick={(e) => e.stopPropagation()}>
+                    <CopyButton className="size-5" copyValue={value} />
                   </span>
                 </Accordion.Trigger>
                 <Accordion.Content>
@@ -206,6 +212,10 @@ export const JsonTree: React.FC<
                 {summary}
               </span>
               <span className="text-tree-bracket">{closeChar}</span>
+            </span>
+            &nbsp;
+            <span onClick={(e) => e.stopPropagation()}>
+              <CopyButton className="size-5" copyValue={data} />
             </span>
           </Accordion.Trigger>
 
