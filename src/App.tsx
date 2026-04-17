@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 import * as NavigationMenu from '@radix-ui/react-navigation-menu';
 import cn from 'classnames';
@@ -8,13 +8,14 @@ import {
   type Theme,
   useSettings,
 } from 'context/SettingsContext';
-import { Monitor, Moon, Settings, Sun } from 'lucide-react';
+import { Filter, Monitor, Moon, Settings, Sun, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 import { JsonTree } from 'components/JsonTree';
 import { Popover } from 'components/Popover';
 import { RadioGroup } from 'components/RadioGroup';
 import type { Json } from 'types/json';
+import { runFilter } from 'utils/filter';
 import { maxDepth, nodeCount } from 'utils/json';
 
 const themes: Theme[] = [
@@ -61,6 +62,11 @@ const LevelButton: React.FC<
 const App: React.FC<{ data: Json }> = ({ data }) => {
   const { t } = useTranslation();
   const [currentLevel, setCurrentLevel] = useState<number | 'all'>('all');
+  const [filterQuery, setFilterQuery] = useState('');
+  const [filteredData, setFilteredData] = useState<Json | null>(null);
+  const [filterError, setFilterError] = useState<string | null>(null);
+  const [filterKey, setFilterKey] = useState(0);
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const {
     tabWidth,
     setTabWidth,
@@ -78,6 +84,28 @@ const App: React.FC<{ data: Json }> = ({ data }) => {
     () => Array.from({ length: depth }, (_, i) => i + 1),
     [depth],
   );
+
+  useEffect(() => {
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    if (!filterQuery.trim()) {
+      setFilteredData(null);
+      setFilterError(null);
+      return;
+    }
+    debounceRef.current = setTimeout(() => {
+      const result = runFilter(data, filterQuery);
+      if (result.ok) {
+        setFilteredData(result.value);
+        setFilterError(null);
+        setFilterKey((k) => k + 1);
+      } else {
+        setFilterError(result.error);
+      }
+    }, 250);
+    return () => {
+      if (debounceRef.current) clearTimeout(debounceRef.current);
+    };
+  }, [filterQuery, data]);
 
   const tabWidthOptions = tabWidths.map((w) => ({
     value: w,
@@ -144,7 +172,40 @@ const App: React.FC<{ data: Json }> = ({ data }) => {
             </NavigationMenu.List>
           </NavigationMenu.Root>
 
-          <div className="ml-auto">
+          <div className="relative flex min-w-32 flex-1 items-center">
+            <Filter className="text-ui-text-muted pointer-events-none absolute left-2 size-3 shrink-0" />
+            <input
+              type="text"
+              value={filterQuery}
+              onChange={(e) => setFilterQuery(e.target.value)}
+              placeholder={t('filter.placeholder')}
+              aria-label={t('aria.filter')}
+              spellCheck={false}
+              className={cn(
+                'bg-ui-surface/50 border-ui-border/50 text-ui-text placeholder:text-ui-text-muted ring-accent w-full rounded-lg border py-1 pr-7 pl-7 font-mono text-xs transition-colors outline-none focus-visible:ring-2',
+                {
+                  'border-red-500/70 focus-visible:ring-red-500/70':
+                    filterError !== null,
+                },
+              )}
+            />
+            {filterQuery && (
+              <button
+                type="button"
+                onClick={() => {
+                  setFilterQuery('');
+                  setFilteredData(null);
+                  setFilterError(null);
+                }}
+                aria-label={t('filter.clear')}
+                className="text-ui-text-muted hover:text-ui-text absolute right-2 cursor-pointer outline-none"
+              >
+                <X className="size-3" />
+              </button>
+            )}
+          </div>
+
+          <div className="ml-0">
             <Popover
               trigger={
                 <button
@@ -199,11 +260,16 @@ const App: React.FC<{ data: Json }> = ({ data }) => {
             </Popover>
           </div>
         </div>
+        {filterError && (
+          <p className="truncate px-4 pt-1 font-mono text-xs text-red-400">
+            {filterError}
+          </p>
+        )}
       </div>
 
       <JsonTree
-        key={String(currentLevel)}
-        data={data}
+        key={`${currentLevel}-${filterKey}`}
+        data={filteredData ?? data}
         expandedDepth={currentLevel}
         className="overflow-auto px-4 pb-2"
       />

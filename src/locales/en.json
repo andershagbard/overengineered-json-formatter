@@ -32,8 +32,13 @@
       "olive": "Olive"
     }
   },
+  "filter": {
+    "placeholder": "Filter with jq…",
+    "clear": "Clear filter"
+  },
   "aria": {
     "copy": "Copy to clipboard",
-    "settings": "Settings"
+    "settings": "Settings",
+    "filter": "jq filter"
   }
 }
