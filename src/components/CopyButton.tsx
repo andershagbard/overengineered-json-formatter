@@ -14,7 +14,10 @@ export const CopyButton: React.FC<
   const { t } = useTranslation();
   const [copied, setCopied] = useState(false);
 
-  const handleCopy = () => {
+  const handleCopy = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
     let text: string;
     if (copyValue === null) {
       text = 'null';

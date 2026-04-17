@@ -99,26 +99,27 @@ const BranchNode = ({
 
             return (
               <Accordion.Item key={key} value={key}>
-                <Accordion.Trigger className="group hover:bg-tree-hover flex w-full cursor-pointer items-center rounded-sm py-px select-none">
-                  <ChevronRight className="text-tree-separator size-3 shrink-0 transition-transform group-data-[state=open]:rotate-90" />
-                  {keyName && <Label keyName={keyName} />}
-                  <span className="text-tree-bracket">{OPEN_CHAR}</span>
-                  <span className="group-data-[state=open]:hidden">
-                    <span className="text-tree-separator mx-1 text-xs">
-                      {summary}
-                    </span>
-                    <span className="text-tree-bracket">{CLOSE_CHAR}</span>
-                    {TRAILING_CHAR && (
-                      <span className="text-tree-separator">
-                        {TRAILING_CHAR}
+                <div className="group flex items-center">
+                  <Accordion.Trigger className="group hover:bg-tree-hover focus-visible:ring-accent flex cursor-pointer items-center rounded-sm py-px outline-none select-none focus-visible:ring-2">
+                    <ChevronRight className="text-tree-separator size-3 shrink-0 transition-transform group-data-[state=open]:rotate-90" />
+                    {keyName && <Label keyName={keyName} />}
+                    <span className="text-tree-bracket">{OPEN_CHAR}</span>
+                    <span className="group-data-[state=open]:hidden">
+                      <span className="text-tree-separator mx-1 text-xs">
+                        {summary}
                       </span>
-                    )}
-                  </span>
+                      <span className="text-tree-bracket">{CLOSE_CHAR}</span>
+                      {TRAILING_CHAR && (
+                        <span className="text-tree-separator">
+                          {TRAILING_CHAR}
+                        </span>
+                      )}
+                    </span>
+                  </Accordion.Trigger>
                   &nbsp;
-                  <span onClick={(e) => e.stopPropagation()}>
-                    <CopyButton className="size-5" copyValue={value} />
-                  </span>
-                </Accordion.Trigger>
+                  <CopyButton className="size-5" copyValue={value} />
+                </div>
+
                 <Accordion.Content>
                   <BranchNode
                     entries={subEntries}
@@ -205,20 +206,20 @@ export const JsonTree: React.FC<
     <div className={cn('font-mono text-sm leading-5', className)} {...props}>
       <Accordion.Root type="multiple" defaultValue={['root']}>
         <Accordion.Item value="root">
-          <Accordion.Trigger className="group hover:bg-tree-hover flex w-full cursor-pointer items-center rounded-sm py-px select-none">
-            <ChevronRight className="text-tree-separator size-3 shrink-0 transition-transform group-data-[state=open]:rotate-90" />
-            <span className="text-tree-bracket">{openChar}</span>
-            <span className="group-data-[state=open]:hidden">
-              <span className="text-tree-separator mx-1 text-xs">
-                {summary}
+          <div className="group flex items-center">
+            <Accordion.Trigger className="group hover:bg-tree-hover focus-visible:ring-accent flex cursor-pointer items-center rounded-sm py-px outline-none select-none focus-visible:ring-2">
+              <ChevronRight className="text-tree-separator size-3 shrink-0 transition-transform group-data-[state=open]:rotate-90" />
+              <span className="text-tree-bracket">{openChar}</span>
+              <span className="group-data-[state=open]:hidden">
+                <span className="text-tree-separator mx-1 text-xs">
+                  {summary}
+                </span>
+                <span className="text-tree-bracket">{closeChar}</span>
               </span>
-              <span className="text-tree-bracket">{closeChar}</span>
-            </span>
+            </Accordion.Trigger>
             &nbsp;
-            <span onClick={(e) => e.stopPropagation()}>
-              <CopyButton className="size-5" copyValue={data} />
-            </span>
-          </Accordion.Trigger>
+            <CopyButton className="size-5" copyValue={data} />
+          </div>
 
           <Accordion.Content>
             <BranchNode
