@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@elastic/micro-jq':
+        specifier: ^1.8.0
+        version: 1.8.0
       '@radix-ui/react-accordion':
         specifier: ^1.2.12
         version: 1.2.12(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
@@ -171,6 +174,10 @@ packages:
     resolution: {integrity: sha512-bDLdq0W2V1SkMQDJjrcYyjK9/uKtdl4joT7GRImcootCjZdKRiRYt+cv9z8tJoU/tK3o1lX48LTqN7JMsk5AQg==}
     peerDependencies:
       vite: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0
+
+  '@elastic/micro-jq@1.8.0':
+    resolution: {integrity: sha512-HMfLiglMgSEdedsaD4jqqxP4+uI26onwLlPbk9dzh6Mk6FYdwWkFHmHMb57VqlV+B/RpIDLJbZ1FjsEQDoANvw==}
+    hasBin: true
 
   '@emnapi/core@1.9.2':
     resolution: {integrity: sha512-UC+ZhH3XtczQYfOlu3lNEkdW/p4dsJ1r/bP7H8+rhao3TTTMO1ATq/4DdIi23XuGoFY+Cz0JmCbdVl0hz9jZcA==}
@@ -2459,6 +2466,8 @@ snapshots:
       vite: 8.0.8(@types/node@25.6.0)(jiti@2.6.1)
     transitivePeerDependencies:
       - supports-color
+
+  '@elastic/micro-jq@1.8.0': {}
 
   '@emnapi/core@1.9.2':
     dependencies:
