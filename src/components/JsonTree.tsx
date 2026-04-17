@@ -81,6 +81,7 @@ const BranchNode = ({
             if (subEntries.length === 0) {
               return (
                 <div key={key} className="flex items-center py-px">
+                  <span className="size-3 shrink-0" />
                   {keyName && <Label keyName={keyName} />}
                   <span className="text-tree-bracket">
                     {OPEN_CHAR}
@@ -153,6 +154,7 @@ const LeafNode: React.FC<
 > = ({ keyName, value, className, isLast = false, ...props }) => {
   return (
     <div className={cn('group flex py-px', className)} {...props}>
+      <span className="size-3 shrink-0" />
       {keyName && <Label keyName={keyName} />}
       <span>
         <Primitive value={value} />
