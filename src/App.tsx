@@ -87,21 +87,24 @@ const App: React.FC<{ data: Json }> = ({ data }) => {
 
   useEffect(() => {
     if (debounceRef.current) clearTimeout(debounceRef.current);
-    if (!filterQuery.trim()) {
-      setFilteredData(null);
-      setFilterError(null);
-      return;
-    }
-    debounceRef.current = setTimeout(() => {
-      const result = runFilter(data, filterQuery);
-      if (result.ok) {
-        setFilteredData(result.value);
-        setFilterError(null);
-        setFilterKey((k) => k + 1);
-      } else {
-        setFilterError(result.error);
-      }
-    }, 250);
+    debounceRef.current = setTimeout(
+      () => {
+        if (!filterQuery.trim()) {
+          setFilteredData(null);
+          setFilterError(null);
+          return;
+        }
+        const result = runFilter(data, filterQuery);
+        if (result.ok) {
+          setFilteredData(result.value);
+          setFilterError(null);
+          setFilterKey((k) => k + 1);
+        } else {
+          setFilterError(result.error);
+        }
+      },
+      filterQuery.trim() ? 250 : 0,
+    );
     return () => {
       if (debounceRef.current) clearTimeout(debounceRef.current);
     };
