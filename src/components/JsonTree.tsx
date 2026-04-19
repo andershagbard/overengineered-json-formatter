@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { CopyButton } from 'components/CopyButton';
 import type { Json } from 'types/json';
 import { getEntries, isExpandable } from 'utils/json';
+import { isUrl } from 'utils/string';
 
 enum Char {
   OPEN_ARRAY = '[',
@@ -27,6 +28,19 @@ const Primitive = ({ value }: { value: string | number | boolean | null }) => {
 
   if (typeof value === 'number') {
     return <span className="text-syntax-number">{value}</span>;
+  }
+
+  if (isUrl(value)) {
+    return (
+      <a
+        href={value}
+        target="_blank"
+        rel="noreferrer"
+        className="text-syntax-string no-underline hover:underline"
+      >
+        {JSON.stringify(value)}
+      </a>
+    );
   }
 
   return <span className="text-syntax-string">{JSON.stringify(value)}</span>;
