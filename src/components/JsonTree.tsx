@@ -34,7 +34,6 @@ const Primitive = ({ value }: { value: string | number | boolean | null }) => {
     return (
       <a
         href={value}
-        target="_blank"
         rel="noreferrer"
         className="text-syntax-string no-underline hover:underline"
       >
