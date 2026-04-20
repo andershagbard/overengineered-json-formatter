@@ -51,3 +51,7 @@ pnpm format     # Auto-format source
 2. Open `chrome://extensions`
 3. Enable **Developer mode**
 4. Click **Load unpacked** and select the `dist/` folder
+
+## Attribution
+
+- Extension icon by [vectorsmarket15](https://www.flaticon.com/authors/vectorsmarket15) from [Flaticon](https://www.flaticon.com/)
