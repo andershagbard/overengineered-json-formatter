@@ -6,6 +6,12 @@
 
 Chrome has a built-in JSON viewer. It's fine. This is not fine - it's so much more than fine. It automatically detects JSON pages and replaces the browser's default rendering with an interactive, syntax-highlighted, collapsible tree view, complete with 9 color themes, 3 tab width options, and a settings popover built with Radix UI.
 
+## Installation
+
+We currently only have it listed on on Chrome Web Store.
+
+- [Google Chrome Extension](https://chromewebstore.google.com/detail/overengineered-json-viewe/lhjefejhcbjhbaogckkljhnebbmpoilg)
+
 ## Features
 
 - Auto-detects JSON pages (`application/json` and `text/json` content types) and replaces the default browser output
