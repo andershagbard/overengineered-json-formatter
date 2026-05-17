@@ -46,27 +46,44 @@ const injectSettings = () => {
 };
 
 if (isJson) {
-  const raw = import.meta.hot?.data.raw ?? document.body.innerText;
+  // Immediately hide the page to prevent flash of raw JSON text.
+  // At document_start, document.body doesn't exist yet, but the style rule
+  // will apply once body is created by the parser.
+  const hideStyle = document.createElement('style');
+  hideStyle.textContent = 'body { display: none !important; }';
+  document.documentElement.appendChild(hideStyle);
 
-  if (import.meta.hot) {
-    import.meta.hot.data.raw = raw;
-  }
+  const init = () => {
+    const raw = import.meta.hot?.data.raw ?? document.body.innerText;
 
-  let parsed: unknown;
-  try {
-    parsed = JSON.parse(raw);
-  } catch {
-    // Not valid JSON — leave the page alone
-  }
+    if (import.meta.hot) {
+      import.meta.hot.data.raw = raw;
+    }
 
-  if (parsed !== undefined) {
+    let parsed: unknown;
+    try {
+      parsed = JSON.parse(raw);
+    } catch {
+      // Not valid JSON - restore visibility and leave the page alone
+      hideStyle.remove();
+      return;
+    }
+
     while (document.body.firstChild) {
       document.body.removeChild(document.body.firstChild);
     }
 
+    hideStyle.remove();
+
     injectCSS();
     injectSettings();
     injectReact(parsed as Json);
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
   }
 }
 
