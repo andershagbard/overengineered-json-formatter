@@ -7,3 +7,7 @@ export const isUrl = (value: string): boolean => {
     return false;
   }
 };
+
+export const isRelativeUrl = (value: string): boolean => {
+  return /^\/\S+$/.test(value);
+};

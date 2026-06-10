@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { isUrl } from 'utils/string';
+import { isRelativeUrl, isUrl } from 'utils/string';
 
 describe('isUrl', () => {
   it('returns true for an http URL', () => {
@@ -57,5 +57,43 @@ describe('isUrl', () => {
 
   it('returns false for a number-like string', () => {
     expect(isUrl('12345')).toBe(false);
+  });
+});
+
+describe('isRelativeUrl', () => {
+  it('returns true for a simple relative path', () => {
+    expect(isRelativeUrl('/image.jpg')).toBe(true);
+  });
+
+  it('returns true for a nested relative path', () => {
+    expect(isRelativeUrl('/some-path/image.jpg')).toBe(true);
+  });
+
+  it('returns true for a path with extension', () => {
+    expect(isRelativeUrl('/index.php')).toBe(true);
+  });
+
+  it('returns true for a path with query string', () => {
+    expect(isRelativeUrl('/search?q=foo')).toBe(true);
+  });
+
+  it('returns false for a bare slash', () => {
+    expect(isRelativeUrl('/')).toBe(false);
+  });
+
+  it('returns false for a path with spaces', () => {
+    expect(isRelativeUrl('/foo bar')).toBe(false);
+  });
+
+  it('returns false for an absolute URL', () => {
+    expect(isRelativeUrl('https://example.com/foo')).toBe(false);
+  });
+
+  it('returns false for a plain string', () => {
+    expect(isRelativeUrl('hello')).toBe(false);
+  });
+
+  it('returns false for an empty string', () => {
+    expect(isRelativeUrl('')).toBe(false);
   });
 });
