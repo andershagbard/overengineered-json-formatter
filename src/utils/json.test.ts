@@ -1,6 +1,5 @@
-import { describe, expect, it } from 'vitest';
-
 import { getEntries, isExpandable, maxDepth, nodeCount } from 'utils/json';
+import { describe, expect, it } from 'vitest';
 
 describe('isExpandable', () => {
   it('returns false for null', () => {

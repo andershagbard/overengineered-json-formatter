@@ -1,7 +1,6 @@
-import { useState } from 'react';
-
 import cn from 'classnames';
 import { Check, Copy } from 'lucide-react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import type { Json } from 'types/json';
