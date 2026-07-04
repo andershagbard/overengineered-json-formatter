@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "test": "vitest",
     "lint": "biome lint .",
-    "format": "biome format --write ."
+    "format": "biome format --write .",
+    "check": "biome check --write ."
   },
   "keywords": [],
   "author": "andershagbard",
