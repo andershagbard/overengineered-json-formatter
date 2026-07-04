@@ -1,10 +1,9 @@
 import * as Accordion from '@radix-ui/react-accordion';
 import cn from 'classnames';
+import { CopyButton } from 'components/CopyButton';
 import { useSettings } from 'context/SettingsContext';
 import { ChevronRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-
-import { CopyButton } from 'components/CopyButton';
 import type { Json } from 'types/json';
 import { getEntries, isExpandable } from 'utils/json';
 import { isRelativeUrl, isUrl } from 'utils/string';

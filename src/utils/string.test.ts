@@ -1,6 +1,5 @@
-import { describe, expect, it } from 'vitest';
-
 import { isRelativeUrl, isUrl } from 'utils/string';
+import { describe, expect, it } from 'vitest';
 
 describe('isUrl', () => {
   it('returns true for an http URL', () => {
