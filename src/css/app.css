@@ -604,3 +604,9 @@
 body {
   @apply bg-background text-foreground;
 }
+
+/* Lets the browser skip layout/paint for off-screen rows in very large JSON trees. */
+@utility tree-row {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 22px;
+}
