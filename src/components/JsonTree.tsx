@@ -93,7 +93,10 @@ const BranchNode = ({
 
             if (subEntries.length === 0) {
               return (
-                <div key={key} className="group flex items-center py-px">
+                <div
+                  key={key}
+                  className="tree-row group flex items-center py-px"
+                >
                   <span className="size-3 shrink-0" />
                   {keyName && <Label keyName={keyName} />}
                   <span className="text-tree-bracket">
@@ -111,7 +114,7 @@ const BranchNode = ({
 
             return (
               <Accordion.Item key={key} value={key}>
-                <div className="group flex items-center">
+                <div className="tree-row group flex items-center">
                   <Accordion.Trigger className="group hover:bg-tree-hover focus-visible:ring-accent flex cursor-pointer items-center rounded-sm py-px outline-none select-none focus-visible:ring-2">
                     <ChevronRight className="text-tree-separator size-3 shrink-0 transition-transform group-data-[state=open]:rotate-90" />
                     {keyName && <Label keyName={keyName} />}
@@ -138,7 +141,7 @@ const BranchNode = ({
                     depth={depth + 1}
                     expandedDepth={expandedDepth}
                   />
-                  <div className="flex items-center py-px">
+                  <div className="tree-row flex items-center py-px">
                     <span className="size-3 shrink-0" />
                     <span className="text-tree-bracket">{CLOSE_CHAR}</span>
                     {TRAILING_CHAR && (
@@ -176,7 +179,7 @@ const LeafNode: React.FC<
   const { wrapContent } = useSettings();
 
   return (
-    <div className={cn('group flex py-px', className)} {...props}>
+    <div className={cn('tree-row group flex py-px', className)} {...props}>
       <span className="size-3 shrink-0" />
       {keyName && <Label keyName={keyName} />}
       <span className={cn({ 'whitespace-nowrap': !wrapContent })}>
@@ -218,7 +221,7 @@ export const JsonTree: React.FC<
     <div className={cn('font-mono text-sm leading-5', className)} {...props}>
       <Accordion.Root type="multiple" defaultValue={['root']}>
         <Accordion.Item value="root">
-          <div className="group flex items-center">
+          <div className="tree-row group flex items-center">
             <Accordion.Trigger className="group hover:bg-tree-hover focus-visible:ring-accent flex cursor-pointer items-center rounded-sm py-px outline-none select-none focus-visible:ring-2">
               <ChevronRight className="text-tree-separator size-3 shrink-0 transition-transform group-data-[state=open]:rotate-90" />
               <span className="text-tree-bracket">{openChar}</span>
@@ -240,7 +243,7 @@ export const JsonTree: React.FC<
               expandedDepth={expandedDepth}
             />
 
-            <div className="flex items-center py-px">
+            <div className="tree-row flex items-center py-px">
               <span className="size-3 shrink-0" />
               <span className="text-tree-bracket">{closeChar}</span>
             </div>
