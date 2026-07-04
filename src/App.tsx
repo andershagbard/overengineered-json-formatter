@@ -1,7 +1,8 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
-
 import * as NavigationMenu from '@radix-ui/react-navigation-menu';
 import cn from 'classnames';
+import { JsonTree } from 'components/JsonTree';
+import { Popover } from 'components/Popover';
+import { RadioGroup } from 'components/RadioGroup';
 import {
   type ColorMode,
   type TabWidth,
@@ -9,11 +10,8 @@ import {
   useSettings,
 } from 'context/SettingsContext';
 import { Filter, Monitor, Moon, Settings, Sun, X } from 'lucide-react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-
-import { JsonTree } from 'components/JsonTree';
-import { Popover } from 'components/Popover';
-import { RadioGroup } from 'components/RadioGroup';
 import type { Json } from 'types/json';
 import { runFilter } from 'utils/filter';
 import { maxDepth, nodeCount } from 'utils/json';
